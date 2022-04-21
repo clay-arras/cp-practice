@@ -1,0 +1,9 @@
+aabcd
+caabd
+5
+a
+ab
+ac
+bc
+abd
+abcd
