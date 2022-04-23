@@ -5,6 +5,7 @@ Place the file in /usr/local/include for Mac
 For Windows or Linux, put it wherever you have bits/stdc++.h located
 
 Put `#include<debug.h>` at the top of your cpp file
+
 Usage:
 
 ```
