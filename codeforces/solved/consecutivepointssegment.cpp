@@ -1,6 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#ifdef LOCAL
+/* #define cerr if(0) cerr */
+#include <debug.h>
+#else
+#define debug(...)
+#endif
+
 void solve(){
     int n; cin >> n;
     vector<int> c;
@@ -9,8 +16,6 @@ void solve(){
         int t; cin >> t;
         c.push_back(t);
     }
-    // basic algorithm is to iterate through the array
-    // must all be consec except for one, where it has a max distance of three
 
     int k = 2;
     for (int i=1; i<n; i++){

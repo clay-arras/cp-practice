@@ -10,19 +10,23 @@ using namespace std;
 
 void solve(){
     int n; cin >> n;
-    vector<int> p;
+    multiset<int> a;
 
+    bool eq = false;
     for (int i=0; i<n; i++){
         int t; cin >> t;
-        p.push_back(t);
+        if (a.count(t)) eq = true;
+        a.insert(t);
     }
-    // greedy solution: subtract the left value from the right one
-    // if that creates an island then add the 
+
+    if (a.count(0)){ cout << n-a.count(0) << endl; }
+    else if (eq){ cout << n << endl; }
+    else cout << n+1 << endl;
 }
 
 int main() {
 	ios::sync_with_stdio(0); cin.tie(0);
-    freopen("input.txt", "r", stdin);
+    /* freopen("input.txt", "r", stdin); */
 
    	int t; cin >> t;
    	while(t--){

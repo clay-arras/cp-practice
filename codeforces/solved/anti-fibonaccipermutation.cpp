@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-using namespace std; 
+using namespace std;
 
 #define ll long long
 #define arr array

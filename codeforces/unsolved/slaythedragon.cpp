@@ -1,42 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, at, def;
-int sum=0;
-vector<int> h; // ms
+/* #define cerr if(0) cerr */
+#ifdef LOCAL
+#include "debug.h"
+#define open(x) freopen(x, "r", stdin);
+#else
+#define debug(...)
+#define open(x)
+#endif
 
-int cost(int i){ return abs(min(0, h[i]-def) + min(0, (sum - h[i])-at)); }
+vector<long long> a;
+long long n, x, y, s = 0;
+long long cost (long long m){
+    return max(0LL, x-a[m]) + max(0LL, y-(s-a[m]));
+}
+// overcounting
+
 void solve(){
     cin >> n;
 
+    set<long long> st;
     for (int i=0; i<n; i++){
-        int t; cin >> t;
-        h.push_back(t);
-        sum += t;
+        long long t; cin >> t;
+        if (st.count(t) == 0){
+            st.insert(t);
+            a.push_back(t);
+        }
+        s += t;
     }
-    sort(h.begin(), h.end());
+    sort(a.begin(), a.end());
+    n = (long long)st.size();
+    /* debug(n, a, a[n]); */
 
     int m; cin >> m;
-    while(m--){
-        cin >> def >> at;
+    while (m--){
+        cin >> x >> y;
 
-        /* int lo = 1, hi = n-1; */
-        /* while (lo < hi){ */
-        /*     int mid = (hi+lo)/2; */
-        /*     if (cost(mid - 1) < cost(mid)){ */
-        /*         hi = mid-1; */
-        /*     }else{ */
-        /*         lo = mid+1; */
-        /*     } */
-        /* } */
-        /* cout << cost(lo-1) << endl; */
-        // need bs implementation library pls
+        long long ans, p = 0;
+        for (long long b = n; b >= 0.5; b /= 2)
+            while (cost(p+b-1) > cost(p+b)) p += b;
+
+        ans = cost(p);
+        cout << ans << endl;
     }
 }
 
 int main() {
 	ios::sync_with_stdio(0); cin.tie(0);
-    freopen("input.txt", "r", stdin);
+    open("input.txt");
 
    	int t=1;
    	while(t--){

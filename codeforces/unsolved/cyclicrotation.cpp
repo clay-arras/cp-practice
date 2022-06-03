@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define cerr if(0) cerr
 #ifndef ONLINE_JUDGE
-#include <debug.h>
+#include "debug.h"
 #else
 #define debug(...)
 #endif
@@ -87,11 +88,13 @@ void solve() {
 }
 
 int main() {
-	ios::sync_with_stdio(0), cin.tie(0);
     freopen("input.txt", "r", stdin);
+    /* int clog_ = clock(); */
+	ios::sync_with_stdio(0), cin.tie(0);
 
     int t; cin >> t;
     while (t--){
         solve();
     }
+    /* cerr << "Time: " << (int)((clock()-clog_)*1.0/CLOCKS_PER_SEC * 1000) << "ms\n"; */
 }

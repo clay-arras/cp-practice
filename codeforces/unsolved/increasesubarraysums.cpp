@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-using namespace std; 
+using namespace std;
 
 void solve(){
     int n, x; cin >> n >> x;

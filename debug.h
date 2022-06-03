@@ -37,7 +37,7 @@ template<typename T, typename V>
 void deb(const pair<T, V>& x) {
     cerr << '{';
     deb(x.first);
-    cerr << ', ';
+    cerr << ", ";
     deb(x.second);
     cerr << '}';
 }
