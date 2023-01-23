@@ -10,39 +10,33 @@ using namespace std;
 #define open(x)
 #endif
 
-vector<long long> a;
-long long n, x, y, s = 0;
-long long cost (long long m){
-    return max(0LL, x-a[m]) + max(0LL, y-(s-a[m]));
-}
-// overcounting
+int a, d, n, sum;
+set<int> set_h;
+vector<int> h;
+int cost(int v){ return max(0, a-sum+h[v]) + max(0, d-h[v]); }
 
 void solve(){
     cin >> n;
 
-    set<long long> st;
     for (int i=0; i<n; i++){
-        long long t; cin >> t;
-        if (st.count(t) == 0){
-            st.insert(t);
-            a.push_back(t);
-        }
-        s += t;
+        int t; cin >> t;
+        set_h.insert(t);
+        sum += t;
     }
-    sort(a.begin(), a.end());
-    n = (long long)st.size();
-    /* debug(n, a, a[n]); */
 
+    for (int i : set_h)
+        h.push_back(i);
+
+    debug(h);
     int m; cin >> m;
-    while (m--){
-        cin >> x >> y;
+    while(m--){
+        cin >> d >> a;
 
-        long long ans, p = 0;
-        for (long long b = n; b >= 0.5; b /= 2)
-            while (cost(p+b-1) > cost(p+b)) p += b;
-
-        ans = cost(p);
-        cout << ans << endl;
+        for (int i=0; i<(int)h.size(); i++){
+            cout << cost(i) << " ";
+            /* cout << "(" << max(0, a-(sum-h[i])) << ", " << max(0, d-h[i]) << ") " << endl; */
+        }
+        cout << endl;
     }
 }
 
