@@ -58,7 +58,7 @@ void solve(){
     for (int i=0; i<M; i++){
         int u, v, w; cin >> u >> v >> w;
         --u, --v;
-        e.push_back({u, v, w});
+        /* e.push_back({u, v, w}); */
     }
     sort(e.begin(), e.end());
 

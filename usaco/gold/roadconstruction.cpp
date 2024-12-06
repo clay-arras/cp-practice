@@ -8,7 +8,7 @@ using namespace std;
 #define open(x)
 #endif
 
-struct DSU{
+struct DSU {
     long long mx;
     vector<long long> e, h;
     vector<int> ht;

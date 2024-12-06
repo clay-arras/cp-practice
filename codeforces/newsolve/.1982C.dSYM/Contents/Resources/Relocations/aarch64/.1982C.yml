@@ -1,0 +1,20 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     .1982C
+relocations:
+  - { offsetInCU: 0xD8, offset: 0xD8, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x1000075D0, symSize: 0x10 }
+  - { offsetInCU: 0xE0, offset: 0xE0, size: 0x8, addend: 0x0, symName: GCC_except_table0, symObjAddr: 0x584, symBinAddr: 0x10000C090, symSize: 0x0 }
+  - { offsetInCU: 0x4979, offset: 0x4979, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x45DF0, symBinAddr: 0x10000C0E8, symSize: 0x0 }
+  - { offsetInCU: 0x10CDD, offset: 0x10CDD, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1982C.cpp, symObjAddr: 0x6A4, symBinAddr: 0x100007BE4, symSize: 0x3C }
+  - { offsetInCU: 0x10CE5, offset: 0x10CE5, size: 0x8, addend: 0x0, symName: __ZTIZ5solvevEUliE_, symObjAddr: 0x6E0, symBinAddr: 0x100008040, symSize: 0x0 }
+  - { offsetInCU: 0x1153B, offset: 0x1153B, size: 0x8, addend: 0x0, symName: __ZNSt17_Function_handlerIFbiEZ5solvevEUliE_E10_M_managerERSt9_Any_dataRKS3_St18_Manager_operation, symObjAddr: 0x50, symBinAddr: 0x100007620, symSize: 0xA0 }
+  - { offsetInCU: 0x116DA, offset: 0x116DA, size: 0x8, addend: 0x0, symName: __ZNSt17_Function_handlerIFbiEZ5solvevEUliE_E9_M_invokeERKSt9_Any_dataOi, symObjAddr: 0x10, symBinAddr: 0x1000075E0, symSize: 0x40 }
+  - { offsetInCU: 0x11720, offset: 0x11720, size: 0x8, addend: 0x0, symName: __ZNSt17_Function_handlerIFbiEZ5solvevEUliE_E9_M_invokeERKSt9_Any_dataOi, symObjAddr: 0x10, symBinAddr: 0x1000075E0, symSize: 0x40 }
+  - { offsetInCU: 0x11B67, offset: 0x11B67, size: 0x8, addend: 0x0, symName: __ZNSt6vectorIiSaIiEED1Ev, symObjAddr: 0x120, symBinAddr: 0x1000076F0, symSize: 0x20 }
+  - { offsetInCU: 0x11CC1, offset: 0x11CC1, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x620, symBinAddr: 0x100007B60, symSize: 0x84 }
+  - { offsetInCU: 0x11CC9, offset: 0x11CC9, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1982C.cpp, symObjAddr: 0x6A4, symBinAddr: 0x100007BE4, symSize: 0x3C }
+  - { offsetInCU: 0x11D4E, offset: 0x11D4E, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x140, symBinAddr: 0x100007710, symSize: 0x444 }
+  - { offsetInCU: 0x11D56, offset: 0x11D56, size: 0x8, addend: 0x0, symName: GCC_except_table0, symObjAddr: 0x584, symBinAddr: 0x10000C090, symSize: 0x0 }
+  - { offsetInCU: 0x12F39, offset: 0x12F39, size: 0x8, addend: 0x0, symName: __ZNSt14_Function_baseD2Ev, symObjAddr: 0xF0, symBinAddr: 0x1000076C0, symSize: 0x30 }
+  - { offsetInCU: 0x12FD2, offset: 0x12FD2, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x1000075D0, symSize: 0x10 }
+...

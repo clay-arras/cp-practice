@@ -44,11 +44,11 @@ void solve(){
         max_group = max(max_group, a[i]);
         dp[i][0] = i*max_group;
 
-        for (int k=1; k<=K; k++){
+        for (int k=1; k<=K; k++) {
             dp[i][k] = INT_MAX - 1e2;;
             int net_size = a[i];
 
-            for (int c=i-1; c>=0; c--){
+            for (int c=i-1; c>=0; c--) {
                 dp[i][k] = min(dp[i][k], dp[c][k-1] + net_size*(i - c));
                 net_size = max(net_size, a[c]);
             }

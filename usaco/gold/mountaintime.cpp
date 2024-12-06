@@ -8,22 +8,25 @@ using namespace std;
 #define open(x)
 #endif
 
-struct Node { int x, y, w; };
-bool operator<(const Node& a, const Node& b) { return a.w < b.w; }
-
-int dx[] = {0, 1, 0, -1};
-int dy[] = {-1, 0, 1, 0};
-int N, M;
-
-vector<int> g;
-vector<int> ans;
+long long N, M;
+vector<long long> g;
+vector<long long> ans;
 
 struct DSU {
 	vector<int> e;
-    vector<vector<Node>> h;
+    vector<int> mx;
+    vector<vector<int>> neighbor;
+
     void init(int V) {
-        e = vector<int>(V,-1);
-        h = vector<vector<Node>>(V, vector<Node>(0));
+        e = vector<int>(V+2,-1);
+        neighbor = vector<vector<int>>
+            (V+2, vector<int>());
+
+        mx.resize(V+2);
+        for (int i=1; i<=V; i++)
+            mx[i] = g[i];
+        for (int i=1; i<=V; i++)
+            neighbor[i].push_back(i);
     }
 
 	int get(int x) {
@@ -32,107 +35,74 @@ struct DSU {
         return e[x] = get(e[x]);
     }
 
-	int size(int x) {
-        return -e[get(x)];
-    }
-
-	bool unite(int x, int y, int currH) {
+	bool unite(int x, int y) {
+        int val = g[x];
 		x = get(x), y = get(y);
         if (x == y)
             return 0;
 
-        if (h[x][0].w == h[y][0].w) {
-            h[x].insert(h[x].end(), h[y].begin(), h[y].end());
+        if (mx[x] < mx[y])
+            swap(x, y);
 
-        } else {
-            if (h[x][0].w < h[y][0].w)
-                swap(x, y);
-
-            for (auto n : h[y]) {
-                if (n.w == -1)
-                    continue;
-                ans[n.x*M + n.y] = max(0, abs(n.w - currH));
-            }
-        }
-        h[y] = vector<Node>(1, {-1, -1, -1});
-
-		e[x] += e[y];
         e[y] = x;
+
+        if (mx[x] > mx[y]) {
+            for (auto n : neighbor[y])
+                ans[n] = val;
+            neighbor[y].clear();
+        }
+
+        if ((int)neighbor[x].size() < (int)neighbor[y].size())
+            neighbor[x].swap(neighbor[y]);
+        for (int i : neighbor[y])
+            neighbor[x].push_back(i);
+
+        neighbor[y].clear();
+        mx[x] = max(mx[x], mx[y]);
 
         return 1;
 	}
 };
 
-vector<Node> countSort(vector<Node> in, int m) {
-	int len = (int)in.size();
-	vector<int> count(m+1);
-	vector<Node> out(len);
-
-	for (Node c : in) {
-		int i = c.w;
-		count[m-i]++;
-	}
-
-	for (int i=1; i<=m; i++)
-        count[i] += count[i-1];
-
-	for (int i = len-1; i >= 0; i--) {
-		count[m-in[i].w]--;
-		out[count[m-in[i].w]] = in[i];
-	}
-
-	return out;
-}
-
 void solve(){
-    cin >> N >> M;;
+    cin >> N >> M;
 
-    g = vector<int>(N*M, -1);
-    ans = vector<int>(N*M, -1);
+    g = vector<long long>(N*M, -1);
+    ans = vector<long long>(N*M, 0);
+    vector<pair<int, int>> e;
 
-    vector<Node> e;
+    long long MX = -INT_MAX;
+    for (int i=1; i<=N*M; i++) {
+        long long t; cin >> t;
+
+        g[i] = t;
+        MX = max(t, MX);
+        e.push_back({t, i});
+    }
+    sort(e.rbegin(), e.rend());
+
     DSU d; d.init(N*M);
-    for (int i=0; i<N; i++) {
-        for (int j=0; j<M; j++) {
-            int t; cin >> t;
-            int pos = i*M + j;
+    vector<bool> vis(N*M+2, false);
 
-            ans[pos] = t, g[pos] = t;
-            e.push_back({i, j, t});
-            d.h[pos].push_back({i, j, t});
+    for (auto V : e) {
+        int pos = V.second, val = V.first;
+        if (val == MX) {
+            vis[pos] = true;
+            continue;
         }
-    }
-    e = countSort(e, N*M);
 
-    for (int it=0; it<(int)e.size(); it++) {
-        int i = e[it].x;
-        int j = e[it].y;
+		if (pos % M != 1 && vis[pos-1]) d.unite(pos, pos-1);
+		if (pos % M && vis[pos+1]) d.unite(pos, pos+1);
+		if (pos > M && vis[pos-M]) d.unite(pos, pos-M);
+		if (pos + M <= N*M && vis[pos+M]) d.unite(pos, pos+M);
 
-        for (int k=0; k<4; k++) {
-            int x = i + dx[k];
-            int y = j + dy[k];
-
-            int thisV = i*M + j;
-            int nextV = x*M + y;
-            int currH = g[thisV];
-
-            if (x>=0 and x<N and y>=0 and y<M) {
-                if (g[thisV] <= g[nextV]) {
-                    d.unite(thisV, nextV, currH);
-
-                    if (g[thisV] != g[nextV]) {
-                        ans[thisV] = 0;
-                    }
-                }
-            }
-        }
+		vis[pos] = true;
     }
 
-    for (int i=0; i<N; i++) {
-        for (int j=0; j<M; j++)
-            cout << ans[i*M+j] << " ";
-        cout << endl;
-    }
+	for (int i=1; i<=N*M; i++) {
+		cout << g[i] - ans[i];
+		cout << (i % M == 0 ? "\n" : " ");
+	}
 }
 
 int main() {
@@ -175,4 +145,3 @@ int main() {
 //
 // We need one array for the neighbors. If a neighbor is larger than the current node
 // Then we set it to 0
-

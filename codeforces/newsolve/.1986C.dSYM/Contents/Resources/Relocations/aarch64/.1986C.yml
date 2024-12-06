@@ -1,0 +1,23 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     .1986C
+relocations:
+  - { offsetInCU: 0xD8, offset: 0xD8, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x100006D50, symSize: 0x10 }
+  - { offsetInCU: 0x8428, offset: 0x8428, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x654E8, symBinAddr: 0x10000C0E0, symSize: 0x0 }
+  - { offsetInCU: 0x184CB, offset: 0x184CB, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1986C.cpp, symObjAddr: 0xD24, symBinAddr: 0x100007A04, symSize: 0x3C }
+  - { offsetInCU: 0x1AA74, offset: 0x1AA74, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xCA0, symBinAddr: 0x100007980, symSize: 0x84 }
+  - { offsetInCU: 0x1AA7C, offset: 0x1AA7C, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1986C.cpp, symObjAddr: 0xD24, symBinAddr: 0x100007A04, symSize: 0x3C }
+  - { offsetInCU: 0x1AAFD, offset: 0x1AAFD, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x6D0, symBinAddr: 0x100007420, symSize: 0x554 }
+  - { offsetInCU: 0x1CBB4, offset: 0x1CBB4, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x100006D50, symSize: 0x10 }
+  - { offsetInCU: 0x1CBD5, offset: 0x1CBD5, size: 0x8, addend: 0x0, symName: __ZSt13__adjust_heapIN9__gnu_cxx17__normal_iteratorIPcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEElcNS0_5__ops15_Iter_less_iterEEvT_T0_SD_T1_T2_.isra.0, symObjAddr: 0x10, symBinAddr: 0x100006D60, symSize: 0xF4 }
+  - { offsetInCU: 0x1CBDD, offset: 0x1CBDD, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIiSt4pairIKiiESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_.isra.0, symObjAddr: 0x104, symBinAddr: 0x100006E54, symSize: 0xA0 }
+  - { offsetInCU: 0x1CE25, offset: 0x1CE25, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIiSt4pairIKiiESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_.isra.0, symObjAddr: 0x104, symBinAddr: 0x100006E54, symSize: 0xA0 }
+  - { offsetInCU: 0x1CE2D, offset: 0x1CE2D, size: 0x8, addend: 0x0, symName: __ZSt16__insertion_sortIN9__gnu_cxx17__normal_iteratorIPcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEENS0_5__ops15_Iter_less_iterEEvT_SC_T0_.isra.0, symObjAddr: 0x1A4, symBinAddr: 0x100006EF4, symSize: 0xCC }
+  - { offsetInCU: 0x1CFBB, offset: 0x1CFBB, size: 0x8, addend: 0x0, symName: __ZSt16__insertion_sortIN9__gnu_cxx17__normal_iteratorIPcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEENS0_5__ops15_Iter_less_iterEEvT_SC_T0_.isra.0, symObjAddr: 0x1A4, symBinAddr: 0x100006EF4, symSize: 0xCC }
+  - { offsetInCU: 0x1D2E8, offset: 0x1D2E8, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIiSt4pairIKiiESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_.isra.0, symObjAddr: 0x270, symBinAddr: 0x100006FC0, symSize: 0x110 }
+  - { offsetInCU: 0x1D41E, offset: 0x1D41E, size: 0x8, addend: 0x0, symName: __ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEElNS0_5__ops15_Iter_less_iterEEvT_SC_T0_T1_.isra.0, symObjAddr: 0x380, symBinAddr: 0x1000070D0, symSize: 0x1D0 }
+  - { offsetInCU: 0x1D426, offset: 0x1D426, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIiSt4pairIKiiESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E.isra.0, symObjAddr: 0x550, symBinAddr: 0x1000072A0, symSize: 0x180 }
+  - { offsetInCU: 0x1D46E, offset: 0x1D46E, size: 0x8, addend: 0x0, symName: __ZSt16__introsort_loopIN9__gnu_cxx17__normal_iteratorIPcNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEEElNS0_5__ops15_Iter_less_iterEEvT_SC_T0_T1_.isra.0, symObjAddr: 0x380, symBinAddr: 0x1000070D0, symSize: 0x1D0 }
+  - { offsetInCU: 0x1DB0A, offset: 0x1DB0A, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIiSt4pairIKiiESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E.isra.0, symObjAddr: 0x550, symBinAddr: 0x1000072A0, symSize: 0x180 }
+  - { offsetInCU: 0x1DB12, offset: 0x1DB12, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x6D0, symBinAddr: 0x100007420, symSize: 0x554 }
+...

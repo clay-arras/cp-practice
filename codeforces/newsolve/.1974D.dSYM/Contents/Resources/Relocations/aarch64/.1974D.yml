@@ -1,0 +1,18 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     .1974D
+relocations:
+  - { offsetInCU: 0xD8, offset: 0xD8, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x100006A20, symSize: 0x10 }
+  - { offsetInCU: 0x7A19, offset: 0x7A19, size: 0x8, addend: 0x0, symName: __ZStL8__ioinit, symObjAddr: 0x5D230, symBinAddr: 0x10000C0E8, symSize: 0x0 }
+  - { offsetInCU: 0x15E7E, offset: 0x15E7E, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1974D.cpp, symObjAddr: 0x1104, symBinAddr: 0x100007AC4, symSize: 0x3C }
+  - { offsetInCU: 0x16F35, offset: 0x16F35, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x1080, symBinAddr: 0x100007A40, symSize: 0x84 }
+  - { offsetInCU: 0x16F3D, offset: 0x16F3D, size: 0x8, addend: 0x0, symName: __GLOBAL__sub_I_1974D.cpp, symObjAddr: 0x1104, symBinAddr: 0x100007AC4, symSize: 0x3C }
+  - { offsetInCU: 0x16FBE, offset: 0x16FBE, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x3C4, symBinAddr: 0x100006DE4, symSize: 0xC54 }
+  - { offsetInCU: 0x1A925, offset: 0x1A925, size: 0x8, addend: 0x0, symName: __ZNKSt5ctypeIcE8do_widenEc, symObjAddr: 0x0, symBinAddr: 0x100006A20, symSize: 0x10 }
+  - { offsetInCU: 0x1A946, offset: 0x1A946, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIcSt4pairIKciESt10_Select1stIS2_ESt4lessIcESaIS2_EE24_M_get_insert_unique_posERS1_.isra.0, symObjAddr: 0x10, symBinAddr: 0x100006A30, symSize: 0xA0 }
+  - { offsetInCU: 0x1A94E, offset: 0x1A94E, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIcSt4pairIKciESt10_Select1stIS2_ESt4lessIcESaIS2_EE22_M_emplace_hint_uniqueIJRKSt21piecewise_construct_tSt5tupleIJOcEESD_IJEEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_.isra.0, symObjAddr: 0xB0, symBinAddr: 0x100006AD0, symSize: 0x194 }
+  - { offsetInCU: 0x1AADC, offset: 0x1AADC, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIcSt4pairIKciESt10_Select1stIS2_ESt4lessIcESaIS2_EE22_M_emplace_hint_uniqueIJRKSt21piecewise_construct_tSt5tupleIJOcEESD_IJEEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_.isra.0, symObjAddr: 0xB0, symBinAddr: 0x100006AD0, symSize: 0x194 }
+  - { offsetInCU: 0x1AAE4, offset: 0x1AAE4, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIcSt4pairIKciESt10_Select1stIS2_ESt4lessIcESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E.isra.0, symObjAddr: 0x244, symBinAddr: 0x100006C64, symSize: 0x180 }
+  - { offsetInCU: 0x1B107, offset: 0x1B107, size: 0x8, addend: 0x0, symName: __ZNSt8_Rb_treeIcSt4pairIKciESt10_Select1stIS2_ESt4lessIcESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E.isra.0, symObjAddr: 0x244, symBinAddr: 0x100006C64, symSize: 0x180 }
+  - { offsetInCU: 0x1B10F, offset: 0x1B10F, size: 0x8, addend: 0x0, symName: __Z5solvev, symObjAddr: 0x3C4, symBinAddr: 0x100006DE4, symSize: 0xC54 }
+...

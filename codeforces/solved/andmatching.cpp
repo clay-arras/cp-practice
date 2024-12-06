@@ -1,7 +1,7 @@
 // lesson, don't be afraid to use casework or test bigger cases; also need more help implementing faster
 
 #include <bits/stdc++.h>
-using namespace std; 
+using namespace std;
 
 #define ll long long;
 #define arr array;
@@ -66,13 +66,13 @@ void solve(){
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-	
+
 	#ifndef ONLINE_JUDGE
    		freopen("../io/input.txt", "r", stdin);
    		freopen("../io/output.txt", "w", stdout);
    	#endif
 
-   	int t; cin >> t; 
+   	int t; cin >> t;
    	while(t--){
    		solve();
    	}

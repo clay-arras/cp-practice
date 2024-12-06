@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-using namespace std; 
+using namespace std;
 
 using ll = long long;
 using vi = vector<int>;
@@ -13,7 +13,7 @@ using pi = pair<int,int>;
 #define mp make_pair
 
 const int MAXN = 1000;
-int n; 
+int n;
 int area, perimeter;
 char grid[MAXN][MAXN];
 bool visited[MAXN][MAXN];
@@ -40,7 +40,7 @@ int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 	#ifndef ONLINE_JUDGE
-   		freopen("../io/input.txt", "r", stdin);
+        freopen("../io/input.txt", "r", stdin);
    		freopen("../io/output.txt", "w", stdout);
    	#endif
 

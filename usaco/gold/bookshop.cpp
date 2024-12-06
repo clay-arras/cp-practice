@@ -71,6 +71,4 @@ int main() {
    	while(t--){
    		solve1();
    	}
-
 }
-

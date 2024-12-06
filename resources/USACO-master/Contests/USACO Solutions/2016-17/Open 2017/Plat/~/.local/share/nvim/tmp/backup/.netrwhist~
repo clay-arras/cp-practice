@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/astronaut/.config/nvim/lua'
+let g:netrw_dirhist_3='/Users/astronaut'
+let g:netrw_dirhist_2='/Users/astronaut/Workspace/code/cp/usaco/gold'
+let g:netrw_dirhist_1='/Users/astronaut'
+let g:netrw_dirhist_0='/Users/astronaut/.config/nvim/lua'
+let g:netrw_dirhist_9='/Users/astronaut/Workspace/code/cp/usaco/gold'
+let g:netrw_dirhist_8='/Users/astronaut/Workspace/code/cp/usaco'
+let g:netrw_dirhist_7='/Users/astronaut/Workspace/code/cp'
+let g:netrw_dirhist_6='/Users/astronaut/Workspace/code/cp/usaco/gold'
+let g:netrw_dirhist_5='/Users/astronaut/Workspace/code/cp/usaco'
