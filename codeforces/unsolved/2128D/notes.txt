@@ -1,0 +1,42 @@
+pivot: what if dp[i] is the total sum of all subarrays STARTING at i?
+ans: [9, 5, 2, 1]
+
+terms:
+- 1: to count the new subarray starting at r
+- (N-1-r)*((p[r+1] > p[r+2]) + 0 + (p[r] > p[r+1])): N-1-r means if N-1 then 0, N-2 then 1, N-3 then 2
+
+core assumption: given a subarray and you are trying to expand it by 2, then you only need to look at the first subarray value to get the largest value in the decreasing sequence
+
+
+
+---
+
+what are common patterns with subarrays
+
+solution side:
+- pattern: dp w/ n^2, s.t, we do dp[l][r] = length
+- get answer: we loop over l and r and sum up all the values
+- extension: loop over r, then go backwards for l. for each r, need to do 2 values for parity to cover all of it
+
+problem side:
+- if we have i+2's length, then if we extend the subarray to the left by 2, we have dp[i] = 1 + (pi > pi+2)
+- claim: given a subsequence w/ descending, you only have to look at the left two items to get their biggest value
+
+
+case study:
+p1 p2 p3 p4
+max(p1, p2) > p3
+max(p2, p3) > p4
+
+if p1 is small
+p2 > p3
+p2 > p4
+then 2 + (p3 > p4)
+
+if p1 is big and p2 is small
+p1 > p3
+p3 > p4
+
+if p1 is big and p2 is med
+p1 > p2
+

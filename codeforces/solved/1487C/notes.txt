@@ -1,0 +1,4 @@
+solution:
+
+if n is odd, then we can make 0 ties b/c each team plays n-1 (even) amount of games, so they can win one lose one
+if n is even, then we can do same strat but tie to even it up, will get n/2 ties

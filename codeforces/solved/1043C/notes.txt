@@ -1,0 +1,53 @@
+## greedy algorithm
+
+two operations:
+- shift: moves the first x bits to the left, done by swapping the x and
+  x+1 prefixes. this operation is applied if the x+1th element is a 0
+- swap: swaps like normal, only done if the x prefix is larger than its
+  swap
+
+goal: get an array w/ 00001111 (or minimize, each operation should be
+done s.t. the numbers are monotonically decreasing)
+
+question: how to implement this
+
+swap implementation:
+step 1: mask the bits
+step 2: loop through and manually reverse
+
+```cpp
+int N = (int)s.size();
+
+
+auto get = [&](int sel, int i) -> bool {
+    return ((sel & (1 << i)) >> i);
+};
+auto set = [&](int sel, int i, bool val) -> int {
+    if (val) return (sel | (1 << i));
+    else     return (sel & (~(1 << i)));
+};
+
+
+int reverse(int j) {
+    int sel = (bts >> (N-j));
+    int mask = ((bts << j) >> j);
+    for (int i=0; i<ceil(j*1.0/2); i++) {
+        bool tmp = get(sel, i);
+        sel = set(sel, i, get(sel, j-i-1))
+        sel = set(sel, j-i-1, tmp);
+    }
+    return sel | mask;
+}
+
+int shift(int j) {
+    int sel = (bts >> (N-j)) << (N-j);
+    int mask = ((bts << (j+1)) >> (j+1));
+
+    sel = (sel >> 1);
+    sel = set(sel, 0, get(bts, N-j-1));
+
+    return mask | sel;
+}
+```
+
+

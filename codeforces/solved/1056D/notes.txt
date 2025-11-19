@@ -1,0 +1,3 @@
+
+euler tour to get subtree sizes
+put all subtree sizes into a sorted set, then just binary search for each k

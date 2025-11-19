@@ -1,0 +1,17 @@
+solution (wrong):
+
+- loop through the tree and find all leaves, and store in vector
+- loop through the leaves. keep a array called maxTime, which is the latest that node will last
+- dfs, where maxTime is updated according to depth from leaf (MAX)
+- loop through maxTime and count number of indices > k
+
+problem side:
+- if you get the diameter of the tree that passes through point i, then the length of the shorter end is the time it would take
+
+- assume nodes where n=1 are LEAVES, n=2 are BRANCHES, and n=3+ are HUBS
+- we dfs until we run into a HUB. hubs are ONLY complete when deg-1 BRANCHES have ???
+- then for each completed hub, we continue until we run into another hub. add it to the processing list if complete (leaves)
+- when are hubs complete???
+
+solution side:
+

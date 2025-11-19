@@ -1,0 +1,12 @@
+step 1: do coordinate compression
+step 2: compute two difference arrays that encapsulate the x and y bounds
+step 3: because they're rectangles we guarantee that if an x range has
+N-1 rectangles AND a y range has N-1 rectangles, then their intersection
+is going to be a coordinate where N-1 rectangles cross
+step 4: undo coordinate compression
+
+
+notes: this N-1 thing is super sussy, solution has to do with it FS
+
+pattern: process x and y separately (instead of 2d, process 2 1ds)
+pattern: process each point and assume its the -1 in the N-1 required

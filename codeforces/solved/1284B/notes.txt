@@ -1,0 +1,7 @@
+
+simplification:
+- ONLY the minimum and the maximum value of each sequence matters
+- need an NlogN solution OR a N solution
+
+- loop through every single sequence. we have a sorted list of values that represent the LARGEST value in each sequence.
+- use an ordered statistics tree

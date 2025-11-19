@@ -1,0 +1,6 @@
+idea: what if we just greedy it
+
+put all numbers in multiset.
+biggest number gets subtracted biggest value. when used then value i--. if set is empty then good.
+
+its always good to subtract biggest power because sum of all smaller ones can't be bigger than biggest power.

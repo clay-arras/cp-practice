@@ -1,0 +1,519 @@
+snippet Template "Template" b
+#include <bits/stdc++.h>
+using namespace std;
+
+#ifdef LOCAL
+#include "algo/debug.h"
+#define open(x) freopen(x, "r", stdin);
+#else
+#define open(x)
+#endif
+
+void solve() {
+
+}
+
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0);
+    open("input.txt");
+
+    int t; cin >> t;
+    while (t--) {
+        solve();
+    }
+}
+endsnippet
+
+snippet DSU "Disjoint Set Union" b
+struct DSU {
+    vector<int> e;
+    void init(int N) {
+        e = vector<int>(N,-1);
+    }
+    int get(int x) {
+        if (e[x] < 0)
+            return x;
+        return e[x] = get(e[x]);
+    }
+    int size(int x) {
+        return -e[get(x)];
+    }
+    bool unite(int x, int y) {
+        x = get(x), y = get(y);
+        if (x == y)
+            return 0;
+        if (e[x] > e[y])
+            swap(x,y);
+        e[x] += e[y];
+        e[y] = x;
+        return 1;
+    }
+};
+endsnippet
+
+snippet Dijkstras "Dijkstras Algorithm" b
+template<class T>
+vector<T> Dijkstras(T src, int N) {
+    const T mxV = 1e18+9;
+    priority_queue<pair<T, T>, vector<pair<T, T>>, greater<pair<T, T>>> q;
+    vector<T> dist(N, mxV);
+    dist[src] = 0;
+    q.push({0, src});
+    while (!q.empty()) {
+        T x=q.top().first, u=q.top().second;
+        q.pop();
+        if (x > dist[u]) continue;
+        for (auto t : adj_list[u]) {
+            if (x+t.second < dist[t.first]) {
+                dist[t.first] = x+t.second;
+                q.push({dist[t.first], t.first});
+            }
+        }
+    }
+    return dist;
+}
+endsnippet
+
+snippet LastBS "Binary Search" b
+template<class T>
+T lastTrue(T l, T r, function<bool(T)> f) {
+    l--;
+    for (T diff=r-l; diff>0; diff/=2)
+        while (l + diff <= r && f(l + diff))
+            l += diff;
+    return l;
+}
+endsnippet
+
+snippet FirstBS "Binary Search" b
+template<class T>
+T firstTrue(T l, T r, function<bool(T)> f) {
+    r++;
+    while (l < r) {
+        T mid = l + (r - l) / 2;
+        if (f(mid)) r = mid;
+        else l = mid + 1;
+    }
+    return l;
+}
+endsnippet
+
+snippet BFS "Breath First Search" b
+template<class T>
+vector<T> BFS(T src, int N) {
+    const T mxV = 1e18+9;
+    queue<int> q;
+    vector<T> dist(N, mxV);
+    dist[src] = 0;
+    q.push(src);
+    while (!q.empty()) {
+        int x = q.front();
+        q.pop();
+        for (int t : adj_list[x]) {
+            if (dist[t] == mxV) {
+                dist[t] = dist[x] + 1;
+                q.push(t);
+            }
+        }
+    }
+	return dist;
+}
+endsnippet
+
+snippet LazySegTree "Lazy Segment Tree" b
+template<class T, int SZ>
+struct LazySeg {
+    static_assert(__builtin_popcount(SZ) == 1);
+    const T ID{};
+    T cmb(T a, T b) { return a+b; }
+    T seg[2*SZ], lazy[2*SZ];
+    LazySeg() {
+        for (int i=0; i<2*SZ; i++)
+            seg[i] = lazy[i] = ID;
+    }
+    void push(int ind, int L, int R) {
+        seg[ind] += (R-L+1)*lazy[ind];
+        if (L != R) {
+            for (int i=0; i<2; ++i)
+                lazy[2*ind+i] += lazy[ind];
+        }
+        lazy[ind] = 0;
+    }
+    void pull(int ind){
+        seg[ind]=cmb(seg[2*ind],seg[2*ind+1]);
+    }
+    void build() {
+        for (int i=SZ-1; i>=1; --i)
+            pull(i);
+    }
+    void update(int lo,int hi,T inc,int ind=1,int L=0, int R=SZ-1) {
+        push(ind,L,R);
+        if (hi < L || R < lo) return;
+        if (lo <= L && R <= hi) {
+            lazy[ind] = inc;
+            push(ind,L,R);
+            return;
+        }
+        int M = (L+R)/2;
+        update(lo,hi,inc,2*ind,L,M);
+        update(lo,hi,inc,2*ind+1,M+1,R);
+        pull(ind);
+    }
+    T query(int lo, int hi, int ind=1, int L=0, int R=SZ-1) {
+        push(ind,L,R);
+        if (lo > R || L > hi) return ID;
+        if (lo <= L && R <= hi) return seg[ind];
+        int M = (L+R)/2;
+        return cmb(query(lo,hi,2*ind,L,M), query(lo,hi,2*ind+1,M+1,R));
+    }
+};
+endsnippet
+
+snippet SegTree "Segment Tree" b
+template<class T>
+struct SegTree {
+    static constexpr T unit = 0;
+    T f(T a, T b) { return a + b; }
+    vector<T> tree; int n;
+    SegTree (int i = 0, T def = unit) : tree(2*i, def), n(i) {}
+    void update(int pos, T val) {
+        for (tree[pos += n] = val; pos /= 2;)
+            tree[pos] = f(tree[pos * 2], tree[pos * 2 + 1]);
+    }
+    T query(int b, int e) {
+        T ra = unit, rb = unit;
+        for (b += n, e += n; b < e; b /= 2, e /= 2) {
+            if (b % 2) ra = f(ra, tree[b++]);
+            if (e % 2) rb = f(tree[--e], rb);
+        }
+        return f(ra, rb);
+    }
+};
+endsnippet
+
+snippet LCA "Lowest Common Ancestor" b
+int n, timer = 0;
+vector<int> graph[MX];
+int tin[MX], euler_tour[MX], segtree[MX];
+
+void dfs(int node=0, int parent=-1) {
+    tin[node] = timer;
+    euler_tour[timer++] = node;
+    for (int i : graph[node]) {
+        if (i != parent) {
+            dfs(i, node);
+            euler_tour[timer++] = node;
+        }
+    }
+}
+int mn_tin (int x, int y) {
+    if (x == -1)
+        return y;
+    if (y == -1)
+        return x;
+    return (tin[x] < tin[y] ? x : y);
+}
+void build (int node=1, int l=0, int r=timer-1) {
+    if (l == r) segtree[node] = euler_tour[l];
+    else {
+        int mid = (l + r) / 2;
+        build(node * 2, l, mid);
+        build(node * 2 + 1, mid + 1, r);
+        segtree[node] = mn_tin(segtree[node * 2], segtree[node * 2 + 1]);
+    }
+}
+int query (int a, int b, int node=1, int l=0, int r=timer-1) {
+    if (l > b or r < a)
+        return -1;
+    if (l >= a and r <= b)
+        return segtree[node];
+    int mid = (l + r) / 2;
+    return mn_tin(query(a, b, node*2, l, mid), query(a, b, node*2+1, mid+1, r));
+}
+int lca (int a, int b) {
+    if (tin[a] > tin[b])
+        swap(a, b);
+    return query(tin[a], tin[b]);
+}
+endsnippet
+
+snippet BIN "Binary Indexed Tree" b
+template <int... ArgsT>
+struct BIT {
+    int val = 0;
+    void update(int val) {
+        this->val += val;
+    }
+    int query() {
+        return val;
+    }
+};
+
+template <int N, int... Ns>
+struct BIT<N, Ns...> {
+    BIT<Ns...> bit[N + 1];
+    template<typename... Args>
+    void update(int pos, Args... args) {
+        for (; pos <= N; bit[pos].update(args...), pos += lastbit(pos));
+    }
+
+    template<typename... Args>
+    int query(int l, int r, Args... args) {
+        int ans = 0;
+        for (; r >= 1; ans += bit[r].query(args...), r -= lastbit(r));
+        for (--l; l >= 1; ans -= bit[l].query(args...), l -= lastbit(l));
+        return ans;
+    }
+    inline int lastbit(int x) {
+        return x & (-x);
+    }
+};
+endsnippet
+
+snippet Kruskals "Kruskals Algorithm" b
+template<class T> T
+Kruskals (int N, vector<pair<T, pair<int, int>>> e) {
+    sort(e.begin(), e.end());
+    DSU D; D.init(N+1);
+    T ans = 0;
+    for (auto &a : e) {
+        if (D.unite(a.second.first, a.second.second)) {
+            adj_list[a.second.first].push_back({a.second.second, a.first});
+            adj_list[a.second.second].push_back({a.second.first, a.first});
+            ans += a.first;
+        }
+    }
+    return ans;
+}
+endsnippet
+
+snippet OST "Order Statistics Tree" b
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+
+template<class T>
+using oset = tree<T, null_type,
+      less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+endsnippet
+
+snippet Sieve "Sieve of Eratosthenes" b
+template <int SZ>
+struct Sieve {
+    bitset<SZ> is_prime; vector<int> primes;
+    Sieve() {
+        is_prime.set();
+        is_prime[0]=is_prime[1]=0;
+        for (int i=4; i<SZ; i+=2) is_prime[i] = 0;
+        for (int i=3; i*i<SZ; i+=2) {
+            if (is_prime[i])
+                for (int j=i*i; j<SZ; j+=i*2)
+                    is_prime[j] = 0;
+        }
+        for (int i=0; i<SZ; i++) {
+            if (is_prime[i])
+                primes.push_back(i);
+        }
+    }
+};
+endsnippet
+
+snippet Topological "Topological Sort DFS" b
+struct TopoSort {
+    int N; vector<int> in, res;
+    vector<vector<int>> adj;
+    void init(int _N) {
+        N = _N;
+        in.resize(N);
+        adj.resize(N);
+    }
+    void add_edge(int x, int y) {
+        adj[x].push_back(y);
+        in[y]++;
+    }
+    bool sort() {
+        priority_queue<int, vector<int>, greater<int>> q;
+        for (int i=1; i<N; i++)
+            if (!in[i]) q.push(i);
+        while ((int)q.size()) {
+            int x = q.top(); q.pop(); res.push_back(x);
+            for (const int &i : adj[x])
+                if (!(--in[i])) q.push(i);
+        }
+        return ((int)res.size() == N - 1);
+    }
+};
+endsnippet
+
+snippet RMQ "RMQ" b
+template<class T>
+struct RMQ {
+    vector<T> v; vector<vector<int>> jmp;
+    int level(int x) { return 31-__builtin_clz(x); }
+    int cmb(int a, int b) {
+        if (v[a] == v[b])
+            return min(a, b);
+        return v[a] < v[b] ? a : b;
+    }
+    void init(const vector<T>& _v) {
+        int sz = (int)_v.size();
+        jmp = { vector<int>(sz) };
+        v = _v;
+        iota(jmp[0].begin(), jmp[0].end(), 0);
+        for (int j=1; (1<<j)<=sz; j++) {
+            jmp.push_back(vector<int>(sz-(1<<j)+1));
+            for (int i=0; i<(int)jmp[j].size(); i++)
+                jmp[j][i] = cmb(jmp[j-1][i], jmp[j-1][i+(1<<(j-1))]);
+        }
+    }
+    int index(int l, int r) {
+        int d = level(r-l+1);
+        assert(l <= r);
+        return cmb(jmp[d][l], jmp[d][r-(1<<d)+1]);
+    }
+    T query(int l, int r) { return v[index(l,r)]; }
+};
+endsnippet
+
+snippet Hash "GP Hash Table" b
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+struct chash {
+    const uint64_t C = uint64_t(2e18 * PI) + 71;
+    const uint32_t RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+    size_t operator()(uint64_t x) const { return __builtin_bswap64((x ^ RANDOM) * C); }
+};
+template <class K, class V>
+gp_hash_table<K, V, chash> htable;
+endsnippet
+
+snippet XORTrie "Trie" b
+template<int SZ, int MXBIT> struct Trie {
+    int next[SZ][2], sz[SZ], num = 0;
+    long long mxV = 1e18+9;
+    Trie() { memset(next, 0, sizeof(next)); memset(sz, 0, sizeof(sz)); }
+    void insert (long long x, int a = 1) {
+        int curr = 0; sz[curr] += a;
+        for (int i=MXBIT-1; i>=0; i--) {
+            int t = (x>>i)&1;
+            if (!next[curr][t])
+                next[curr][t] = ++num;
+            sz[curr = next[curr][t]] += a;
+        }
+    }
+    long long test(long long x) {
+        if (!sz[0]) return -mxV;
+        int curr = 0;
+        for (int i=MXBIT-1; i>=0; i--) {
+            int t = ((x>>i)&1)^1;
+            if (!next[curr][t] || !sz[next[curr][t]])
+                t ^= 1;
+            curr = next[curr][t];
+            if (t) x ^= (1LL<<i);
+        }
+        return x;
+    }
+};
+endsnippet
+
+snippet Prim "Prim for Dense Graphs" b
+struct Edge { int w=INF, to=-1; };
+long long Prim(int N) {
+    int ans = 0;
+    vector<bool> selected(N, 0);
+    vector<Edge> min_e(N);
+    min_e[0].w = 0;
+    for (int i=0; i<N; ++i) {
+        int v = -1;
+        for (int j=0; j<N; ++j)
+            if (!selected[j] and (v == -1 or min_e[j].w < min_e[v].w))
+                v = j;
+        if (min_e[v].w == INF)
+            return -1;
+        selected[v] = true;
+        ans += min_e[v].w;
+        for (int to=0; to<N; ++to) {
+            if (adj[v][to] < min_e[to].w)
+                min_e[to] = {adj[v][to], v};
+        }
+    }
+    return ans;
+}
+endsnippet
+
+snippet ModInt "ModInt" b
+template<int MOD, int RT> struct mint {
+    static const int mod = MOD;
+    static constexpr mint rt() { return RT; }
+    int v;
+    explicit operator int() const { return v; }
+    mint() : v(0) {}
+    mint(long long _v) : v(int(_v%MOD)) { v += (v<0)*MOD; }
+    mint& operator+=(mint o) {
+        if ((v += o.v) >= MOD) v -= MOD;
+        return *this;
+    }
+    mint& operator-=(mint o) {
+        if ((v -= o.v) < 0) v += MOD;
+        return *this;
+    }
+    mint& operator*=(mint o) {
+        v = int((long long)v*o.v%MOD);
+        return *this;
+    }
+    friend mint pow(mint a, long long p) {
+        assert(p >= 0);
+        return (p == 0 ? 1 : pow(a*a, p/2)*(p&1 ? a : 1));
+    }
+    friend mint inv(mint a) { assert(a.v != 0); return pow(a,MOD-2); }
+    friend mint operator+(mint a, mint b) { return a += b; }
+    friend mint operator-(mint a, mint b) { return a -= b; }
+    friend mint operator*(mint a, mint b) { return a *= b; }
+};
+endsnippet
+
+snippet BinaryExponentiation "Binary Exponentiation" b
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
+endsnippet
+
+snippet EulerTour "EulerTour" b
+int timer = 0, st[MX], en[MX];
+void dfs(int node, int parent) {
+    st[node] = timer++;
+    for (int i : adj_list[node]) {
+        if (i != parent) { dfs(i, node); }
+    }
+    en[node] = timer - 1;
+}
+endsnippet
+
+snippet Trie "Trie" b
+struct Trie {
+    vector<Trie*> pt;
+    bool en = false;
+    Trie() { pt = vector<Trie*>(26, nullptr); }
+    auto insert(string s) {
+        if (s.empty()) return (en = true);
+        if (pt[s[0]-'a'] == nullptr) {
+            pt[s[0]-'a'] = new Trie();
+        }
+        return pt[s[0]-'a']->insert(s.substr(1));
+    }
+    bool search(string s) {
+        if (s.empty()) return en;
+        if (pt[s[0]-'a'] == nullptr)
+            return false;
+        return pt[s[0]-'a']->search(s.substr(1));
+    }
+};
+endsnippet
