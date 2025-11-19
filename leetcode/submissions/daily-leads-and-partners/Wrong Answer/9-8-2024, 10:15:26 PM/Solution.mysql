@@ -1,0 +1,13 @@
+// https://leetcode.com/problems/daily-leads-and-partners
+
+# Write your MySQL query statement below
+# SELECT DISTINCT * 
+# FROM (
+#     SELECT lead_id, partner_id 
+#     FROM DailySales
+# ) AS SubQuery
+
+# COUNT(DISTINCT)
+SELECT COUNT(DISTINCT lead_id) AS unique_leads, lead_id
+FROM DailySales
+GROUP BY lead_id

@@ -1,0 +1,7 @@
+// https://leetcode.com/problems/employees-with-missing-information
+
+# Write your MySQL query statement below
+SELECT * 
+FROM Employees
+INNER JOIN Salaries
+ON Employees.employee_id = Salaries.employee_id

@@ -1,0 +1,9 @@
+// https://leetcode.com/problems/actors-and-directors-who-cooperated-at-least-three-times
+
+# Write your MySQL query statement below
+SELECT actor_id, director_id
+FROM (
+    SELECT *, CONCAT(actor_id, '-', director_id) AS tmp
+    FROM ActorDirector
+    HAVING COUNT(tmp) >= 3
+) AS SubQuery

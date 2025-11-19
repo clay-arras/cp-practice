@@ -1,0 +1,12 @@
+// https://leetcode.com/problems/swap-sex-of-employees
+
+# Write your MySQL query statement below
+# SELECT id,
+# CASE 
+#     WHEN sex = 'm' THEN 'f'
+#     WHEN sex = 'f' THEN 'm'
+#     ELSE 'n'
+# END AS sex
+# FROM Salary
+UPDATE Salary
+SET sex = IF(sex = 'm', 'f', 'm')

@@ -1,0 +1,5 @@
+// https://leetcode.com/problems/minimum-reverse-operations
+
+class Solution:
+    def minReverseOperations(self, n: int, p: int, banned: List[int], k: int) -> List[int]:
+        

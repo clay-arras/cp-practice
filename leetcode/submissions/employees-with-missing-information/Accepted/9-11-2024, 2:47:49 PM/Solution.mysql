@@ -1,0 +1,18 @@
+// https://leetcode.com/problems/employees-with-missing-information
+
+# Write your MySQL query statement below
+SELECT DISTINCT employee_id
+FROM 
+(
+    SELECT *
+    FROM Salaries
+    LEFT JOIN Employees 
+    USING (employee_id)
+    UNION
+    SELECT *
+    FROM Salaries
+    RIGHT JOIN Employees 
+    USING (employee_id)
+) AS Tmp
+WHERE name IS NULL OR salary IS NULL
+ORDER BY employee_id
