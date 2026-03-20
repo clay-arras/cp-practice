@@ -8,10 +8,26 @@ using namespace std;
 #define open(x)
 #endif
 
+struct SMeta {
+    int val = -INT_MAX;
+    int offset = 0;
+    int idx = 0;
+
+    bool operator<(const SMeta& other) const {
+        if (val + offset == other.val + other.offset)
+            return idx > other.idx;
+        return val + offset < other.val + other.offset;
+    };
+};
+
 template<class T>
 struct SegTree {
-    static constexpr T unit = 0;
-    T f(T a, T b) { return gcd(a, b); }
+    static constexpr T unit = {};
+    T f(T a, T b) { 
+        SMeta anew{a.val, a.offset, a.idx};
+        SMeta bnew{b.val, a.offset + b.offset, b.idx};
+        return max(anew, bnew); 
+    }
     vector<T> tree; int n;
     SegTree (int i = 0, T def = unit) : tree(2*i, def), n(i) {}
     void update(int pos, T val) {
@@ -31,27 +47,30 @@ struct SegTree {
 
 void solve() {
     int N; cin >> N;
-
-    vector<int> P(N);
-    for (int& i : P)
+    vector<int> A(N);
+    for (int& i : A)
         cin >> i;
 
-    SegTree<int> st(N, (P[0] * P[N-1])/gcd(P[0], P[N-1]));
+    SegTree<SMeta> stree(N);
     for (int i=0; i<N; i++) 
-        st.update(i, P[i]);
+        stree.update(i, SMeta{A[i], 1, i});
 
-    long long ans = st.query(0, N-1);
-    for (int i=1; i<N-1; i++) 
-        ans += min(st.query(0, i), st.query(i, N-1));
-    cout << ans << endl;
-
+    set<int> s;
+    for (int i=0; i<N; i++) {
+        auto top = stree.query(0, N-1);
+        s.insert(top.val + top.offset);
+        stree.update(top.idx, SMeta{-INT_MAX, 0, i});
+    }
+    for (auto it=s.rbegin(); it!=s.rend(); ++it)
+        cout << *it << " ";
+    cout << endl;
 }
 
 int main() {
     ios::sync_with_stdio(0); cin.tie(0);
     // open("input.txt");
 
-    int t = 1;
+    int t; cin >> t;
     while (t--) {
         solve();
     }

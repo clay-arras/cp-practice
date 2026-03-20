@@ -8,24 +8,13 @@ using namespace std;
 #define open(x)
 #endif
 
-const int MX = 2e5+1;
-vector<int> adj_list[MX];
-vector<bool> visited;
-int N, K; 
-
 void solve() {
-    cin >> N >> K;
-    for (int i=0; i<N-1; i++) {
-        int u, v; cin >> u >> v;
-        --u, --v;
-        adj_list[u].push_back(v);
-        adj_list[v].push_back(u);
-    }
-
+    int N; cin >> N;
+    vector<int> A(N);
+    for (int& i : A)
+        cin >> i;
 
     
-
-    fill(adj_list, adj_list+N, vector<int>{});
 }
 
 int main() {
@@ -37,3 +26,10 @@ int main() {
         solve();
     }
 }
+
+/*
+
+intuitively, why won't a step by step simulation work w/ partial evaluators?
+
+
+*/

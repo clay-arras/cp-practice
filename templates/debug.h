@@ -10,6 +10,8 @@
 #include <list>
 #include <stack>
 #include <array>
+#include <string_view>
+#include <type_traits>
 
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec);
@@ -69,7 +71,7 @@ std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec) {
         return out;
     }
     out << '[';
-    for (int i = 0; i < (int)vec.size() - 1; i++) {
+    for (std::size_t i = 0; i < vec.size() - 1; i++) {
         out << vec[i] << ", ";
     }
     return out << vec.back() << ']';
@@ -95,7 +97,7 @@ std::ostream& operator<<(std::ostream& out, const std::deque<T>& deq) {
         return out;
     }
     out << '[';
-    for (int i = 0; i < deq.size() - 1; i++) {
+    for (std::size_t i = 0; i < deq.size() - 1; i++) {
         out << deq[i] << ", ";
     }
     return out << deq.back() << ']';
@@ -255,4 +257,85 @@ std::ostream& operator<<(std::ostream& out, std::queue<T, Container> q) {
         q.pop();
     }
     return out << ']';
+}
+
+
+namespace aggregate_print_impl {
+
+template<typename T>
+constexpr std::string_view type_name() {
+    #if defined(__GNUC__) || defined(__clang__)
+    std::string_view fn = __PRETTY_FUNCTION__;
+    std::size_t start = fn.find("T = ");
+    if (start == std::string_view::npos) return "unknown";
+    start += 4;
+    std::size_t end = fn.find_first_of(";]", start);
+    if (end == std::string_view::npos) return "unknown";
+    return fn.substr(start, end - start);
+    #else
+    return "struct";
+    #endif
+}
+
+struct Any { template<typename T> constexpr operator T() const noexcept; };
+
+template<typename T, typename Seq, typename = void>
+struct is_brace_constructible_n : std::false_type {};
+
+template<typename T, std::size_t... Is>
+struct is_brace_constructible_n<T, std::index_sequence<Is...>,
+    std::void_t<decltype(T{(void(Is), Any{})...})>> : std::true_type {};
+
+template<typename T, std::size_t N = 4>
+constexpr std::size_t member_count_impl() {
+    if constexpr (N == 0) return 0;
+    else if constexpr (is_brace_constructible_n<T, std::make_index_sequence<N>>::value) return N;
+    else return member_count_impl<T, N - 1>();
+}
+
+template<typename T>
+constexpr std::size_t member_count = member_count_impl<T, 4>();
+
+template<typename T>
+void print_members(std::ostream&, const T&, std::integral_constant<std::size_t, 0>) {}
+
+template<typename T>
+void print_members(std::ostream& out, const T& obj, std::integral_constant<std::size_t, 1>) {
+    const auto& [m0] = obj;
+    out << "[0]: " << m0;
+}
+
+template<typename T>
+void print_members(std::ostream& out, const T& obj, std::integral_constant<std::size_t, 2>) {
+    const auto& [m0, m1] = obj;
+    out << "[0]: " << m0 << ", [1]: " << m1;
+}
+
+template<typename T>
+void print_members(std::ostream& out, const T& obj, std::integral_constant<std::size_t, 3>) {
+    const auto& [m0, m1, m2] = obj;
+    out << "[0]: " << m0 << ", [1]: " << m1 << ", [2]: " << m2;
+}
+
+template<typename T>
+void print_members(std::ostream& out, const T& obj, std::integral_constant<std::size_t, 4>) {
+    const auto& [m0, m1, m2, m3] = obj;
+    out << "[0]: " << m0 << ", [1]: " << m1 << ", [2]: " << m2 << ", [3]: " << m3;
+}
+
+template<typename T>
+constexpr bool is_printable_aggregate_v =
+    std::is_aggregate_v<T> && std::is_class_v<T> && !std::is_array_v<T>;
+
+} // namespace aggregate_print_impl
+
+template<typename T>
+auto operator<<(std::ostream& out, const T& obj)
+    -> std::enable_if_t<aggregate_print_impl::is_printable_aggregate_v<T>, std::ostream&>
+{
+    constexpr std::size_t N = aggregate_print_impl::member_count<T>;
+    out << aggregate_print_impl::type_name<T>() << " { ";
+    aggregate_print_impl::print_members(out, obj, std::integral_constant<std::size_t, N>{});
+    out << " }";
+    return out;
 }
